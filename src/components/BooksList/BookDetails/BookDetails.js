@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import parse from 'html-react-parser'
+import parse from "html-react-parser";
+import { getBookById } from "../../../api/booksApi";
 
 function BookDetails({ bookId }) {
     const[book, setBook] = useState(null);
     const[error, setError] = useState(false);
 
     useEffect(() => {
-        fetch(`https://www.googleapis.com/books/v1/volumes/${bookId}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setBook(data);
+        getBookById(bookId)
+            .then((response) => {
+                setBook(response.data);
                 setError(false);
             })
             .catch((error) => {
@@ -28,7 +28,7 @@ function BookDetails({ bookId }) {
 
     return (
         <div className="book">
-            <h1>Book Title: {book.volumeInfo.title}</h1>
+            <h1>Book Title: {book.volumeInfo.title ? book.volumeInfo.title : 'Title is not available'}</h1>
             <h2>Book Author: {book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : 'Authors are not available'}</h2>
             <h2>Book Language: {book.volumeInfo.language}</h2>
             <h2>Book Country of Origin: {book.saleInfo.country}</h2>
