@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import parse from "html-react-parser";
+import { useParams} from "react-router-dom";
 import { getBookById } from "../../../api/booksApi";
 
-function BookDetails({ bookId }) {
+function BookDetails() {
+    const {bookId} = useParams()
     const[book, setBook] = useState(null);
     const[error, setError] = useState(false);
 

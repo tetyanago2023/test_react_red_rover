@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getBooksBySearchTerm } from "../../api/booksApi";
 
-function BooksList({search, onSelectBook}) {
+function BooksList({ search }) {
     const[books, setBooks] = useState([]);
 
     useEffect(() => {
@@ -24,9 +25,9 @@ function BooksList({search, onSelectBook}) {
             <ul>
                 {books.map((book, index) => (
                     <li key={index}>
-                        <a title={book.volumeInfo.title} href='#' onClick={() => onSelectBook(book.id)}>
+                        <Link to={`/book/${book.id}`} title={book.volumeInfo.title}>
                             {book.volumeInfo.title}
-                        </a>
+                        </Link>
                     </li>
                 ))}
             </ul>
