@@ -4,10 +4,10 @@ import { useState } from "react";
 import About from "../About/About";
 import BookDetails from "../BooksList/BookDetails/BookDetails";
 import BooksList from "../BooksList/BooksList";
+import Header from "../Header/Header";
 import NotFound from "../NotFound/NotFound";
-import SearchBar from "../SearchBar/SearchBar";
-import { ThemeContext } from "../../context";
-import ThemeToggler from "../ThemeToggler/ThemeToggler";
+import {SearchContext, ThemeContext} from "../../context";
+
 
 
 
@@ -21,22 +21,24 @@ function App() {
 
   return (
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
-          <Router>
-              <div className="app">
-                  <SearchBar setSearch={setSearch}/>
-                  <ThemeToggler />
+          <SearchContext.Provider value={{search, setSearch}}>
+              <Router>
+                  <div className="app">
+                      <Header setSearch={setSearch} />
 
-                  <Routes>
-                      <Route path="/" element={<BooksList search={search} />}></Route>
-                      <Route path="/book/:bookId" element={<BookDetails />}></Route>
+                      <Routes>
+                          <Route path="/" element={<BooksList />}></Route>
+                          <Route path="/book/:bookId" element={<BookDetails />}></Route>
 
-                      <Route path="/about" element={<About />}></Route>
+                          <Route path="/about" element={<About />}></Route>
 
-                      <Route path="*" element={<Navigate to="/404" />}></Route>
-                      <Route path="/404" element={<NotFound />}></Route>
-                  </Routes>
-              </div>
-          </Router>
+                          <Route path="*" element={<Navigate to="/404" />}></Route>
+                          <Route path="/404" element={<NotFound />}></Route>
+                      </Routes>
+                  </div>
+              </Router>
+          </SearchContext.Provider>
+
       </ThemeContext.Provider>
 
 
