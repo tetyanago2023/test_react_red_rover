@@ -9,11 +9,12 @@ import ThemeToggler from "../ThemeToggler/ThemeToggler";
 
 function Header() {
     // const { search, setSearch } = useContext(SearchContext);
-    const { setSearch } = useContext(SearchContext);
+    const { setSearch, setFilters } = useContext(SearchContext);
     const navigate = useNavigate();
 
     const handleSearch = (newSearch) => {
         setSearch(newSearch);
+        setFilters({});
         navigate("/");
     }
 

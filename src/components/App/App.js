@@ -13,6 +13,7 @@ import {SearchContext, ThemeContext} from "../../context";
 
 function App() {
   const[search, setSearch] = useState('');
+  const[filters, setFilters] = useState({});
   const[theme, setTheme] = useState('light');
 
   const toggleTheme = () => {
@@ -21,7 +22,7 @@ function App() {
 
   return (
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
-          <SearchContext.Provider value={{search, setSearch}}>
+          <SearchContext.Provider value={{ search, setSearch, filters, setFilters }}>
               <Router>
                   <div className="app">
                       <Header setSearch={setSearch} />
