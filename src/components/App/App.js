@@ -4,6 +4,7 @@ import { useState } from "react";
 import About from "../About/About";
 import BookDetails from "../BooksList/BookDetails/BookDetails";
 import BooksList from "../BooksList/BooksList";
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import Header from "../Header/Header";
 import NotFound from "../NotFound/NotFound";
 import {SearchContext, ThemeContext} from "../../context";
@@ -26,6 +27,7 @@ function App() {
               <Router>
                   <div className="app">
                       <Header setSearch={setSearch} />
+                      <Breadcrumbs />
 
                       <Routes>
                           <Route path="/" element={<BooksList />}></Route>
