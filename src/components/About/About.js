@@ -1,4 +1,4 @@
-import "./About.css"
+import "./About.scss"
 function About(props) {
     return (
         <div className="about">

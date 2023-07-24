@@ -1,8 +1,9 @@
-import { useEffect, useContext, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { getBooksBySearchTerm } from "../../api/booksApi";
-import {SearchContext} from "../../context";
+import { SearchContext } from "../../context";
 import FilterBar from "../FilterBar/FilterBar";
+import slugify from "slugify";
 
 function BooksList() {
     const { search, filters } = useContext(SearchContext);
@@ -10,9 +11,9 @@ function BooksList() {
     const[currentPage, setCurrentPage] = useState(1);
     const booksPerPage = 10;
 
-    const handlePageChange = (pageNumber) => {
+    const handlePageChange = useCallback((pageNumber) => {
         setCurrentPage(pageNumber);
-    }
+    }, []);
 
     useEffect(() => {
       if (search) {
@@ -30,13 +31,17 @@ function BooksList() {
 
     const memoizedBooks = useMemo(
         () =>
-        books.map((book, index) => (
-            <li key={index}>
-                <Link to={`/book/${book.id}`} title={book.volumeInfo.title}>
+        books.map((book, index) => {
+            const slug = `${book.id}-${slugify(book.volumeInfo.title, {
+                lower: true, start: true
+            })}`
+
+            return (<li key={index}>
+                <Link to={`/book/${slug}`} title={book.volumeInfo.title}>
                     {book.volumeInfo.title}
                 </Link>
-            </li>
-        )), [books],
+            </li>)
+        }), [books],
     )
 
     return (

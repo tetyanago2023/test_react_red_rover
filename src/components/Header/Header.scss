@@ -1,0 +1,11 @@
+@import "../../styles/colors";
+
+.header {
+    padding: 20px 0;
+    background-color: $grey;
+
+    .navigation {
+        display: flex;
+        justify-content: space-between;
+    }
+}

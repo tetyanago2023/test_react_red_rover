@@ -5,7 +5,8 @@ import { getBookById } from "../../../api/booksApi";
 import withClickLogger from "../../HOC/withClickLogger";
 
 function BookDetails({ onClick }) {
-    const { bookId} = useParams();
+    const { slug} = useParams();
+    const bookId = slug.split('-')[0]
     const[book, setBook] = useState(null);
     const[error, setError] = useState(false);
 

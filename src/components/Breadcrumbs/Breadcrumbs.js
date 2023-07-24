@@ -16,6 +16,7 @@ function Breadcrumbs(props) {
                 console.log('Where:', to);
 
                 return isLast ? (
+                    // <span key={to}> | {value}</span>
                     <span key={to}> | {value}</span>
                 ) : (
                     <>
@@ -23,7 +24,6 @@ function Breadcrumbs(props) {
                         <Link key={to} to={to}>
                             {value}
                         </Link>
-
                     </>
                 );
             })}

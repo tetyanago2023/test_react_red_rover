@@ -1,6 +1,6 @@
-import './App.css';
-import { Navigate, Route, BrowserRouter as Router, Routes} from "react-router-dom";
-import { useState } from "react";
+import './App.scss';
+import {Navigate, Route, BrowserRouter as Router, Routes, useLocation} from "react-router-dom";
+import {useEffect, useRef, useState} from "react";
 import About from "../About/About";
 import BookDetails from "../BooksList/BookDetails/BookDetails";
 import BooksList from "../BooksList/BooksList";
@@ -10,7 +10,30 @@ import NotFound from "../NotFound/NotFound";
 import {SearchContext, ThemeContext} from "../../context";
 
 
+function RoutesWithHistory() {
+    const location = useLocation();
+    const previousLocation = useRef(location);
 
+    useEffect(() => {
+        if (location !== previousLocation.current) {
+            previousLocation.current = location;
+        }
+
+    }, [location]);
+
+    return(
+        <Routes>
+            <Route path="/" element={<BooksList />}></Route>
+            <Route path="/book" element={<Navigate to="/" />}></Route>
+            <Route path="/book/:slug" element={<BookDetails />}></Route>
+
+            <Route path="/about" element={<About />}></Route>
+
+            <Route path="*" element={<Navigate to="/404" />}></Route>
+            <Route path="/404" element={<NotFound />}></Route>
+        </Routes>
+    )
+}
 
 function App() {
   const[search, setSearch] = useState('');
@@ -28,17 +51,7 @@ function App() {
                   <div className="app">
                       <Header setSearch={setSearch} />
                       <Breadcrumbs />
-
-                      <Routes>
-                          <Route path="/" element={<BooksList />}></Route>
-                          <Route path="/book" element={<Navigate to="/" />}></Route>
-                          <Route path="/book/:bookId" element={<BookDetails />}></Route>
-
-                          <Route path="/about" element={<About />}></Route>
-
-                          <Route path="*" element={<Navigate to="/404" />}></Route>
-                          <Route path="/404" element={<NotFound />}></Route>
-                      </Routes>
+                      <RoutesWithHistory />
                   </div>
               </Router>
           </SearchContext.Provider>
