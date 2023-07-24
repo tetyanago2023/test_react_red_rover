@@ -13,7 +13,7 @@ function SearchBar({ setSearch }) {
                    placeholder="Search Books..."
                    onChange={(event) => setSearchValue(event.target.value)}
             />
-            <button onClick={handleSearch}>Go</button>
+            <button onClick={handleSearch}>Search</button>
         </div>
     );
 }
