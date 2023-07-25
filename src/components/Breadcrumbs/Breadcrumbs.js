@@ -19,6 +19,10 @@ function Breadcrumbs() {
                     breadcrumb = value.split("-").slice(1).join(" ");
                 }
 
+                if(isLast && value.includes("_")) {
+                    breadcrumb = value.split("_").join(" ");
+                }
+
                 return isLast ? (
                                     <span key={to}> | {breadcrumb} </span>
                                 ) : (
