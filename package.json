@@ -1,6 +1,7 @@
 {
   "name": "test-app",
   "version": "0.1.0",
+  "homepage": "https://tetyanago2023.github.io/books_react_app/",
   "private": true,
   "dependencies": {
     "axios": "^1.4.0",
@@ -16,6 +17,8 @@
   },
 
   "scripts": {
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -40,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^5.0.0",
     "jest": "^27.5.1"
   }
 }
